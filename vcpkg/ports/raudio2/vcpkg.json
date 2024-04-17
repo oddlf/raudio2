@@ -5,7 +5,7 @@
   "description": "A simple and easy-to-use audio library based on raudio + miniaudio",
   "homepage": "https://github.com/oddlf/raudio2",
   "license": "Zlib",
-  "supports": "!uwp",
+  "supports": "!(osx | uwp)",
   "dependencies": [
     {
       "name": "vcpkg-cmake",
