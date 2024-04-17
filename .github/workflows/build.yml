@@ -1,0 +1,100 @@
+name: build
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+env:
+    VCPKG_BINARY_SOURCES: "clear;x-gha,readwrite"
+
+jobs:
+  build:
+    name: ${{ matrix.preset }}
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      # Set fail-fast to false to ensure that feedback is delivered for all matrix combinations.
+      # Consider changing this to true when your workflow is stable.
+      fail-fast: false
+
+      # Set up a matrix to run the following configurations:
+      matrix:
+        preset:
+          - linux-x64-release
+          - windows-x64-release
+          - windows-x64-release-static
+          - windows-x86-release
+          - windows-x86-release-static
+        os:
+          - ubuntu-latest
+          - windows-latest
+        include:
+          - preset: linux-x64-release
+            os: ubuntu-latest
+            triplet: x64-linux
+            toolchain: /usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
+          - preset: windows-x64-release
+            os: windows-latest
+            triplet: x64-windows
+            toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+          - preset: windows-x64-release-static
+            os: windows-latest
+            triplet: x64-windows-static
+            toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+          - preset: windows-x86-release
+            os: windows-latest
+            triplet: x86-windows
+            toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+          - preset: windows-x86-release-static
+            os: windows-latest
+            triplet: x86-windows-static
+            toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
+        exclude:
+          - os: ubuntu-latest
+            preset: windows-x64-release
+          - os: ubuntu-latest
+            preset: windows-x64-release-static
+          - os: ubuntu-latest
+            preset: windows-x86-release
+          - os: ubuntu-latest
+            preset: windows-x86-release-static
+          - os: windows-latest
+            preset: linux-x64-release
+
+    steps:
+    - uses: actions/checkout@v3
+
+    - name: Install CMake
+      uses: lukka/get-cmake@latest
+      with:
+        cmakeVersion: "3.29.2"
+
+    - name: Enable GitHub Actions cache
+      uses: actions/github-script@v6
+      with:
+        script: |
+          core.exportVariable('ACTIONS_CACHE_URL', process.env.ACTIONS_CACHE_URL || '');
+          core.exportVariable('ACTIONS_RUNTIME_TOKEN', process.env.ACTIONS_RUNTIME_TOKEN || '');
+
+    - name: Setup MSVC
+      if: runner.os == 'Windows'
+      uses: TheMrMilchmann/setup-msvc-dev@v2
+      with:
+        arch: x64
+
+    - name: Setup Ninja
+      uses: turtlesec-no/get-ninja@main
+
+    - name: Install vcpkg dependencies
+      run: |
+        vcpkg install libarchive libgme libmodplug libopenmpt libsndfile libvorbis mpg123 opusfile \
+          --overlay-ports=./vcpkg/ports \
+          --triplet=${{ matrix.triplet }} \
+      shell: bash
+
+    - name: Build
+      run: |
+        cmake --preset ${{ matrix.preset }} -DCMAKE_TOOLCHAIN_FILE=${{ matrix.toolchain }}
+        cmake --build --preset ${{ matrix.preset }}

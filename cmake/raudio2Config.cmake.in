@@ -1,0 +1,50 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_LIST_DIR})
+
+if(@RAUDIO2_ARCHIVE_GZIP@)
+    find_dependency(ZLIB)
+endif()
+
+if(@RAUDIO2_ARCHIVE_LIBARCHIVE@)
+    find_dependency(LibArchive)
+endif()
+
+if(@RAUDIO2_INPUT_FLAC@)
+    find_dependency(FLAC)
+endif()
+
+if(@RAUDIO2_INPUT_GME@)
+    find_dependency(gme)
+    find_dependency(ZLIB)
+endif()
+
+if(@RAUDIO2_INPUT_MODPLUG@)
+    find_dependency(modplug)
+endif()
+
+if(@RAUDIO2_INPUT_MPG123@)
+    find_dependency(mpg123)
+endif()
+
+if(@RAUDIO2_INPUT_OPENMPT@)
+    find_dependency(libopenmpt)
+endif()
+
+if(@RAUDIO2_INPUT_OPUS@)
+    find_dependency(OpusFile)
+endif()
+
+if(@RAUDIO2_INPUT_SNDFILE@)
+    find_dependency(SndFile)
+endif()
+
+if(@RAUDIO2_INPUT_VORBIS@)
+    find_dependency(Vorbis)
+endif()
+
+include("${CMAKE_CURRENT_LIST_DIR}/raudio2Targets.cmake")
+
+check_required_components(raudio2)
