@@ -1,11 +1,10 @@
 {
   "name": "raudio2",
-  "version": "1.0.0",
-  "port-version": 0,
+  "version": "1.0.1",
   "description": "A simple and easy-to-use audio library based on raudio + miniaudio",
   "homepage": "https://github.com/oddlf/raudio2",
   "license": "Zlib",
-  "supports": "!(osx | uwp)",
+  "supports": "!(android | osx | uwp)",
   "dependencies": [
     {
       "name": "vcpkg-cmake",
@@ -26,18 +25,6 @@
     "wav"
   ],
   "features": {
-    "gzip": {
-      "description": "GZIP archive plugin",
-      "dependencies": [
-        "zlib"
-      ]
-    },
-    "libarchive": {
-      "description": "LibArchive archive plugin",
-      "dependencies": [
-        "libarchive"
-      ]
-    },
     "drflac": {
       "description": "FLAC (dr_flac) input plugin"
     },
@@ -54,6 +41,18 @@
       "description": "GME input plugin",
       "dependencies": [
         "libgme"
+      ]
+    },
+    "gzip": {
+      "description": "GZIP archive plugin",
+      "dependencies": [
+        "zlib"
+      ]
+    },
+    "libarchive": {
+      "description": "LibArchive archive plugin",
+      "dependencies": [
+        "libarchive"
       ]
     },
     "modplug": {

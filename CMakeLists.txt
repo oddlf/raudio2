@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(RAUDIO2_VERSION 1.0.0)
+set(RAUDIO2_VERSION 1.0.1)
 
 project(raudio2
     DESCRIPTION "raudio2: A simple and easy-to-use audio library based on raudio + miniaudio"
@@ -53,21 +53,23 @@ set(RAUDIO2_SOURCE_FILES
     ${RAUDIO2_SRC}/VirtualIO.cpp
 )
 
-add_subdirectory(${RAUDIO2_ARCHIVE}/gzip)
-add_subdirectory(${RAUDIO2_ARCHIVE}/libarchive)
+if (RAUDIO2_STANDALONE_PLUGIN)
+    add_subdirectory(${RAUDIO2_ARCHIVE}/gzip)
+    add_subdirectory(${RAUDIO2_ARCHIVE}/libarchive)
 
-add_subdirectory(${RAUDIO2_INPUT}/drflac)
-add_subdirectory(${RAUDIO2_INPUT}/drmp3)
-add_subdirectory(${RAUDIO2_INPUT}/flac)
-add_subdirectory(${RAUDIO2_INPUT}/gme)
-add_subdirectory(${RAUDIO2_INPUT}/modplug)
-add_subdirectory(${RAUDIO2_INPUT}/mpg123)
-add_subdirectory(${RAUDIO2_INPUT}/openmpt)
-add_subdirectory(${RAUDIO2_INPUT}/opus)
-add_subdirectory(${RAUDIO2_INPUT}/sndfile)
-add_subdirectory(${RAUDIO2_INPUT}/stbvorbis)
-add_subdirectory(${RAUDIO2_INPUT}/vorbis)
-add_subdirectory(${RAUDIO2_INPUT}/wav)
+    add_subdirectory(${RAUDIO2_INPUT}/drflac)
+    add_subdirectory(${RAUDIO2_INPUT}/drmp3)
+    add_subdirectory(${RAUDIO2_INPUT}/flac)
+    add_subdirectory(${RAUDIO2_INPUT}/gme)
+    add_subdirectory(${RAUDIO2_INPUT}/modplug)
+    add_subdirectory(${RAUDIO2_INPUT}/mpg123)
+    add_subdirectory(${RAUDIO2_INPUT}/openmpt)
+    add_subdirectory(${RAUDIO2_INPUT}/opus)
+    add_subdirectory(${RAUDIO2_INPUT}/sndfile)
+    add_subdirectory(${RAUDIO2_INPUT}/stbvorbis)
+    add_subdirectory(${RAUDIO2_INPUT}/vorbis)
+    add_subdirectory(${RAUDIO2_INPUT}/wav)
+endif()
 
 add_library(${PROJECT_NAME} ${RAUDIO2_SOURCE_FILES})
 set_target_properties(${PROJECT_NAME} PROPERTIES PREFIX "")
