@@ -15,7 +15,7 @@
 #define DR_WAV_IMPLEMENTATION
 #define DR_WAV_NO_STDIO
 #define DR_WAV_NO_WCHAR
-#include "dr_wav.h" // WAV loading functions
+#include <dr_wav.h> // WAV loading functions
 
 using namespace std::literals;
 

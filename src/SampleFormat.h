@@ -1,7 +1,7 @@
 #pragma once
 
 #include "raudio2/raudio2_common.h"
-#include "miniaudio.h"
+#include <miniaudio.h>
 
 constexpr ma_format GetMiniAudioFormat(RAudio2_SampleFormat format) noexcept
 {

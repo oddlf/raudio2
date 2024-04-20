@@ -1,7 +1,7 @@
 #include "AudioStream.h"
 #include "AudioDevice.h"
 #include <cstring>
-#include "miniaudio.h"
+#include <miniaudio.h>
 #include "raudio2/raudio2.hpp"
 #include "SampleFormat.h"
 

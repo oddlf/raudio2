@@ -1,11 +1,12 @@
 {
   "name": "raudio2",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "A simple and easy-to-use audio library based on raudio + miniaudio",
   "homepage": "https://github.com/oddlf/raudio2",
   "license": "Zlib",
   "supports": "!(android | osx | uwp)",
   "dependencies": [
+    "miniaudio",
     {
       "name": "vcpkg-cmake",
       "host": true
@@ -26,10 +27,16 @@
   ],
   "features": {
     "drflac": {
-      "description": "FLAC (dr_flac) input plugin"
+      "description": "FLAC (dr_flac) input plugin",
+      "dependencies": [
+        "drlibs"
+      ]
     },
     "drmp3": {
-      "description": "MP3 (dr_mp3) input plugin"
+      "description": "MP3 (dr_mp3) input plugin",
+      "dependencies": [
+        "drlibs"
+      ]
     },
     "flac": {
       "description": "FLAC (libflac) input plugin",
@@ -86,7 +93,10 @@
       ]
     },
     "stbvorbis": {
-      "description": "Vorbis (stb_vorbis) input plugin"
+      "description": "Vorbis (stb_vorbis) input plugin",
+      "dependencies": [
+        "stb"
+      ]
     },
     "vorbis": {
       "description": "Vorbis (vorbisfile) input plugin",
@@ -95,7 +105,10 @@
       ]
     },
     "wav": {
-      "description": "WAV input plugin"
+      "description": "WAV (dr_wav) input plugin",
+      "dependencies": [
+        "drlibs"
+      ]
     }
   }
 }

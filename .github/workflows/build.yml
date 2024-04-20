@@ -89,7 +89,7 @@ jobs:
 
     - name: Install vcpkg dependencies
       run: |
-        vcpkg install libarchive libgme libmodplug libopenmpt libsndfile libvorbis mpg123 opusfile \
+        vcpkg install drlibs libarchive libgme libmodplug libopenmpt libsndfile libvorbis miniaudio mpg123 opusfile stb \
           --overlay-ports=./vcpkg/ports \
           --triplet=${{ matrix.triplet }} \
       shell: bash

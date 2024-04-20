@@ -13,7 +13,7 @@
 #define MA_COINIT_VALUE 2 // [2] COINIT_APARTMENTTHREADED: Each object has its own thread (apartment model)
 
 #define MINIAUDIO_IMPLEMENTATION
-#include "miniaudio.h"
+#include <miniaudio.h>
 
 #include "AudioDevice.h"
 #include <cstdio>

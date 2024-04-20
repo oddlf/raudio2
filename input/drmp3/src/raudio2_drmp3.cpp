@@ -15,7 +15,7 @@ using namespace std::literals;
 
 #define DR_MP3_IMPLEMENTATION
 #define DR_MP3_NO_STDIO
-#include "dr_mp3.h" // MP3 loading functions
+#include <dr_mp3.h> // MP3 loading functions
 
 #ifdef RAUDIO2_STANDALONE_PLUGIN
 bool RAudio2_GetInputPlugin(RAudio2_InputPlugin* plugin)

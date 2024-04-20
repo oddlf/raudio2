@@ -124,6 +124,7 @@
           "value": "$env{VCPKG_ROOT}/scripts/buildsystems/vcpkg.cmake",
           "type": "FILEPATH"
         },
+        "RAUDIO2_STANDALONE_PLUGIN": true,
         "RAUDIO2_STATIC_CRT": false
       },
       "condition": {

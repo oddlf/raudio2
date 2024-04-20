@@ -16,7 +16,7 @@ using namespace std::literals;
 
 #define DR_FLAC_IMPLEMENTATION
 #define DR_FLAC_NO_STDIO
-#include "dr_flac.h" // FLAC loading functions
+#include <dr_flac.h> // FLAC loading functions
 
 #ifdef RAUDIO2_STANDALONE_PLUGIN
 bool RAudio2_GetInputPlugin(RAudio2_InputPlugin* plugin)

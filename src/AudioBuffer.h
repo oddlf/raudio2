@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AudioProcessor.h"
-#include "miniaudio.h"
+#include <miniaudio.h>
 
 // NOTE: Different logic is used when feeding data to the playback device
 // depending on whether data is streamed (Music vs Sound)

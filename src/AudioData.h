@@ -2,7 +2,7 @@
 
 #include <atomic>
 #include "AudioBuffer.h"
-#include "miniaudio.h"
+#include <miniaudio.h>
 
 struct AudioDataSystem {
     ma_context context;        // miniaudio context data

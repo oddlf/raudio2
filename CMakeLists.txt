@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.17)
 
-set(RAUDIO2_VERSION 1.0.1)
+set(RAUDIO2_VERSION 1.0.2)
 
 project(raudio2
     DESCRIPTION "raudio2: A simple and easy-to-use audio library based on raudio + miniaudio"
@@ -38,6 +38,9 @@ set(RAUDIO2_EXTERNAL ${RAUDIO2_ROOT}/external)
 set(RAUDIO2_INCLUDE ${RAUDIO2_ROOT}/include)
 set(RAUDIO2_INPUT ${RAUDIO2_ROOT}/input)
 set(RAUDIO2_SRC ${RAUDIO2_ROOT}/src)
+
+find_path(RAUDIO2_MINIAUDIO_PATH "miniaudio.h" PATHS ${RAUDIO2_EXTERNAL})
+message(STATUS "RAUDIO2_MINIAUDIO_PATH set to: ${RAUDIO2_MINIAUDIO_PATH}")
 
 set(RAUDIO2_SOURCE_FILES
     ${RAUDIO2_SRC}/ArchivePluginIO.cpp
@@ -79,7 +82,7 @@ target_include_directories(${PROJECT_NAME}
         $<BUILD_INTERFACE:${RAUDIO2_INCLUDE}>
         $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     PRIVATE
-        ${RAUDIO2_EXTERNAL} ${RAUDIO2_SRC}
+        ${RAUDIO2_MINIAUDIO_PATH} ${RAUDIO2_SRC}
 )
 
 if(RAUDIO2_ARCHIVE_GZIP)
@@ -103,16 +106,22 @@ if(RAUDIO2_ARCHIVE_LIBARCHIVE)
 endif()
 
 if(RAUDIO2_INPUT_DRFLAC)
+    find_path(RAUDIO2_DRFLAC_PATH "dr_flac.h" PATHS ${RAUDIO2_EXTERNAL})
+    message(STATUS "RAUDIO2_DRFLAC_PATH set to: ${RAUDIO2_DRFLAC_PATH}")
+
     file(GLOB RAUDIO2_INPUT_DRFLAC_SOURCES ${RAUDIO2_INPUT}/drflac/src/*.cpp)
     target_sources(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT_DRFLAC_SOURCES})
-    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/drflac/src)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/drflac/src ${RAUDIO2_DRFLAC_PATH})
     target_compile_definitions(${PROJECT_NAME} PRIVATE RAUDIO2_INPUT_DRFLAC)
 endif()
 
 if(RAUDIO2_INPUT_DRMP3)
+    find_path(RAUDIO2_DRMP3_PATH "dr_mp3.h" PATHS ${RAUDIO2_EXTERNAL})
+    message(STATUS "RAUDIO2_DRMP3_PATH set to: ${RAUDIO2_DRMP3_PATH}")
+
     file(GLOB RAUDIO2_INPUT_DRMP3_SOURCES ${RAUDIO2_INPUT}/drmp3/src/*.cpp)
     target_sources(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT_DRMP3_SOURCES})
-    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/drmp3/src)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/drmp3/src ${RAUDIO2_DRMP3_PATH})
     target_compile_definitions(${PROJECT_NAME} PRIVATE RAUDIO2_INPUT_DRMP3)
 endif()
 
@@ -190,9 +199,12 @@ if(RAUDIO2_INPUT_SNDFILE)
 endif()
 
 if(RAUDIO2_INPUT_STBVORBIS)
+    find_path(RAUDIO2_STBVORBIS_PATH "stb_vorbis.c" PATHS ${RAUDIO2_EXTERNAL})
+    message(STATUS "RAUDIO2_STBVORBIS_PATH set to: ${RAUDIO2_STBVORBIS_PATH}")
+
     file(GLOB RAUDIO2_INPUT_STBVORBIS_SOURCES ${RAUDIO2_INPUT}/stbvorbis/src/*.cpp)
     target_sources(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT_STBVORBIS_SOURCES})
-    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/stbvorbis/src)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/stbvorbis/src ${RAUDIO2_STBVORBIS_PATH})
     target_compile_definitions(${PROJECT_NAME} PRIVATE RAUDIO2_INPUT_STBVORBIS)
 endif()
 
@@ -207,9 +219,12 @@ if(RAUDIO2_INPUT_VORBIS)
 endif()
 
 if(RAUDIO2_INPUT_WAV)
+    find_path(RAUDIO2_DRWAV_PATH "dr_wav.h" PATHS ${RAUDIO2_EXTERNAL})
+    message(STATUS "RAUDIO2_DRWAV_PATH set to: ${RAUDIO2_DRWAV_PATH}")
+
     file(GLOB RAUDIO2_INPUT_WAV_SOURCES ${RAUDIO2_INPUT}/wav/src/*.cpp)
     target_sources(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT_WAV_SOURCES})
-    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/wav/src)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${RAUDIO2_INPUT}/wav/src ${RAUDIO2_DRWAV_PATH})
     target_compile_definitions(${PROJECT_NAME} PRIVATE RAUDIO2_INPUT_WAV)
 endif()
 

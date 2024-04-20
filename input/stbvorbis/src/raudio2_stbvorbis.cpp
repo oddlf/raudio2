@@ -10,7 +10,7 @@ using namespace std::literals;
 
 // TODO: Remap stb_vorbis malloc()/free() calls to RAUDIO2_MALLOC/RAUDIO2_FREE
 #define STB_VORBIS_NO_STDIO
-#include "stb_vorbis.c" // OGG loading functions
+#include <stb_vorbis.c> // OGG loading functions
 
 #ifdef RAUDIO2_STANDALONE_PLUGIN
 bool RAudio2_GetInputPlugin(RAudio2_InputPlugin* plugin)
