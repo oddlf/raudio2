@@ -32,22 +32,27 @@ jobs:
           - windows-latest
         include:
           - preset: linux-x64-release
+            arch: x64
             os: ubuntu-latest
             triplet: x64-linux
             toolchain: /usr/local/share/vcpkg/scripts/buildsystems/vcpkg.cmake
           - preset: windows-x64-release
+            arch: x64
             os: windows-latest
             triplet: x64-windows
             toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
           - preset: windows-x64-release-static
+            arch: x64
             os: windows-latest
             triplet: x64-windows-static
             toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
           - preset: windows-x86-release
+            arch: x86
             os: windows-latest
             triplet: x86-windows
             toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
           - preset: windows-x86-release-static
+            arch: x86
             os: windows-latest
             triplet: x86-windows-static
             toolchain: C:/vcpkg/scripts/buildsystems/vcpkg.cmake
@@ -82,7 +87,7 @@ jobs:
       if: runner.os == 'Windows'
       uses: TheMrMilchmann/setup-msvc-dev@v2
       with:
-        arch: x64
+        arch: ${{ matrix.arch }}
 
     - name: Setup Ninja
       uses: turtlesec-no/get-ninja@main
